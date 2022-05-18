@@ -1,0 +1,75 @@
+@import "style-common.css";
+
+/* Generali */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    width: 100%;
+    padding-bottom: 5rem;
+    position: relative;
+    font-family: var(--font-family);
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+table {
+    line-height: 200%;
+}
+
+.nav-pills {
+    max-width: 250px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--btn-prenota-color);
+    color: black;
+}
+
+.nav-pills a:hover {
+    color: black;
+}
+
+/* Pulsanti */
+.btn-print {
+    background-color: var(--btn-info-color);
+}
+
+.btn-print:hover, .btn-print:active, .btn-print:focus {
+    background-color: rgb(66, 66, 241);
+    color: white;
+}
+
+.btn-confirm {
+    background-color: var(--btn-prenota-color);
+}
+
+.btn-confirm:focus, .btn-confirm:active, .btn-confirm:hover {
+    background-color: var(--btn-info-color);
+}
+
+.btn-disdici {
+    background-color: var(--btn-disdici-color);
+}
+
+.btn-disdici:hover, .btn-disdici:active, .btn-disdici:focus {
+    background-color: red;
+    color: white;
+}
+
+/* Media queries per l'adattamento a dispositivi mobili */
+@media screen and (max-width: 621px) {  
+    section {
+        min-height: 75vh;
+    }
+}
+
+@media screen and (max-width: 654px) {
+    .btn {
+        margin-bottom: .25rem;
+    }
+}

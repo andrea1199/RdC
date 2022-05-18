@@ -1,0 +1,53 @@
+<!-- Body della pagina di login -->
+<section>
+  <div class="mask d-flex">
+    <div class="container">
+      <div class="row d-flex">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card">
+            <div class="card-body p-4">
+
+              <!-- Form -->
+              <form action="/loginValid" method="post" class="form-signin">
+                <a href="/">
+                  <!-- Aspetto dell'immagine originale: 3.66:1 -->
+                  <img src="img/icon-transparent.png" alt="home"/>
+                </a>
+
+                <div> Inserisci i dati per accedere al tuo account!</div>
+                <hr>
+
+                <!-- Email -->
+                <div class="form-outline mb-1 input-group">
+                  <div class="input-group-text"><i class="fa fa-envelope fa-fw"></i></div>
+                  <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}" required/>
+                </div>
+
+                <!-- Password -->
+                <div class="form-outline mb-3 input-group">
+                  <div class="input-group-text"><i class="fa fa-lock fa-fw"></i></div>
+                  <input type="password" class="form-control" name="password" placeholder="Password" id="password" required/>
+                  
+                  <!-- Mostra password -->
+                  <div class="input-group-text" onclick="showPwd()"><i class="fa fa-eye" id="pwdEye"></i></div>
+                </div>
+
+                <!-- Messaggio di errore -->
+                <div class="form-outline mb-4 text-danger" id="message">{{error}}</div>
+
+                <!-- Bottone di conferma -->
+                <div class="text-center form-outline">
+                  <button type="submit" name="loginButton" class="btn btn-primary btn-lg btn-login">Accedi</button>
+                </div>
+              </form>
+
+              <!-- Link di navigazione -->
+              <div class="text-center">Non hai un account? <a href="signup">Registrati</a></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

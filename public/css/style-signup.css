@@ -1,0 +1,69 @@
+/* Colori */
+:root {
+    --theme-color: rgba(24, 192, 46, 0.534);
+    --font-family: "Lato", "Inter", sans-serif;
+}
+
+/* Generali */
+body {
+    background: linear-gradient(
+        to right, 
+        rgba(132, 250, 175, 0.5), 
+        rgba(143, 211, 244, 0.5)),
+        url("/img/logo_80.png");
+    font-family: var(--font-family);
+    background-repeat: space;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    width: 60%;
+}
+
+.btn {
+    background-color: var(--theme-color);
+    color: black;
+    border-color: transparent;
+}
+
+.input-group-text {
+    background-color: white;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.d-flex, .container {
+    height: 100%;
+}
+
+.d-flex {
+    align-items: center;
+    justify-content: center;
+}
+
+.fa-eye, .fa-eye-slash {
+    cursor: pointer;
+}
+
+/* Media queries per l'adattamento a dispositivi mobili */
+@media screen and (max-width: 600px) {
+    img {
+        width: 70%;
+    }
+    
+    div.row {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-height: 720px) {
+    section {
+        height: 100vh;
+    }
+}

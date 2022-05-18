@@ -1,0 +1,21 @@
+{
+  "name": "eventhub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "express-live-reloading": "^1.0.1",
+    "express-session": "^1.17.2",
+    "pg": "^8.7.3",
+    "requirejs": "^2.3.6"
+  }
+}

@@ -1,0 +1,129 @@
+<body>
+  <!-- Includi l'header -->
+  {{> header}}
+
+  <section>
+    <div class="container-xl px-4 mt-4">
+      <div class="row justify-content-center">
+        <!-- Sezione account -->
+        <div class="col-md-8 col-sm-12">
+          <!-- Form -->
+          <div class="card mb-4">
+            <div class="card-header d-flex">
+              Il tuo account
+              <button class="btn btn-primary" onclick="enableChanges()" id="btnModifica">Modifica</button>
+            </div>
+            <div class="card-body">
+              <form method="POST" action="/changeUser" onsubmit="return validaForm()">
+                <div class="row gx-3 mb-3">
+                  <!-- Nome -->
+                  <div class="col-md-6">
+                    <label class="small" for="nome">Nome</label>
+                    <input class="form-control" id="nome" name="nome" type="text" placeholder="Inserire nome"
+                      value="{{nome}}" readonly required />
+                  </div>
+
+                  <!-- Cognome -->
+                  <div class="col-md-6">
+                    <label class="small" for="cognome">Cognome</label>
+                    <input class="form-control" id="cognome" name="cognome" type="text" placeholder="Inserire cognome"
+                      value="{{cognome}}" readonly required />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <!-- Data di nascita -->
+                  <label class="small" for="data">Data di nascita</label>
+                  <input class="form-control" type="date" id="data" name="data" value="{{data}}" readonly required />
+                </div>
+
+                <div class="mb-3">
+                  <!-- Password attuale -->
+                  <label class="small" for="oldPsw">Password attuale</label>
+                  <div class="input-group">
+                    <input class="form-control" type="password" id="oldPsw" name="oldPsw" readonly required
+                      placeholder="Inserisci la password attuale" />
+
+                    <!-- Mostra la password -->
+                    <div class="input-group-text" onclick="showSetPwd0()"><i class="fa fa-eye" id="pwdEye0"></i></div>
+                  </div>
+                </div>
+
+                <div class="row gx-3 mb-3">
+                  <!-- Password nuova -->
+                  <div class="col-md-6">
+                    <label class="small" for="password">Nuova password</label>
+                    <div class="input-group">
+                      <input class="form-control" id="password" type="password" name="password" readonly required
+                        placeholder="Inserisci una nuova password" onchange="checkLghSet()" />
+
+                      <!-- Mostra la password -->
+                      <div class="input-group-text" onclick="showSetPwd1()"><i class="fa fa-eye" id="pwdEye1"></i></div>
+                    </div>
+                  </div>
+
+                  <!-- Ripeti password nuova -->
+                  <div class="col-md-6">
+                    <label class="small" for="password_repeat">Ripeti password</label>
+                    <div class="input-group">
+                      <input class="form-control" id="password_repeat" type="password" name="psw-repeat" readonly
+                        required placeholder="Ripeti password" onchange="checkPwdMatch()" />
+
+                      <!-- Mostra la password -->
+                      <div class="input-group-text" onclick="showSetPwd2()"><i class="fa fa-eye" id="pwdEye2"></i></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Messaggio di errore -->
+                <div class="form-outline mb-3 text-danger" id="message">{{error}}</div>
+
+                <!-- Messaggio di successo -->
+                <div class="form-outline mb-3 text-success" id="success">{{success}}</div>
+
+                <!-- Salva le modifiche -->
+                <div class="text-center">
+                  <button class="btn btn-primary" id="btnSubmit" type="submit" hidden>Conferma</button>
+                  <button class="btn btn-secondary" id="btnReset" type="reset" onclick="disableChanges()"
+                    hidden>Cancella</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rimozione account (solo utenti standard) -->
+        {{#if privilegi}}
+        <div class="col-xl-8">
+          <div class="card mb-4">
+            <div class="card-header">Il tuo profilo</div>
+            <div class="card-body">
+              <p>
+                Rimuovi il mio account.<br>
+                Attenzione: continuando il tuo account verrà rimosso dai nostri sistemi e perderai
+                tutte le prenotazioni.<br>
+              </p>
+
+              <!-- Rimuovi l'account -->
+              <form action="/deleteUser" method="GET">
+                <div>
+                  <input type="checkbox" required />
+                  Sono consapevole della perdita di tutti i miei dati
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-remove" id="btnDeleteAccount">Elimina il mio account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Includi il footer -->
+  {{> footer}}
+</body>

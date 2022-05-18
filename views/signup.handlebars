@@ -1,0 +1,103 @@
+<section>
+  <div class="mask d-flex">
+    <div class="container">
+      <div class="row d-flex">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card">
+            <div class="card-body p-5">
+              
+              <a href="/" class="text-center">
+                <!-- Aspetto dell'immagine originale: 3.66:1 -->
+                <img src="img/icon-transparent.png" alt="home"/>
+              </a>
+
+              <!-- Form -->
+              <form onsubmit="return validaForm()" action="/signupValid" method="post">
+                <h2 class="text-center">Registrati</h2>
+                <p class="text-center">Compila il form per creare un nuovo account!</p>
+                <hr>
+
+                <!-- Nome e cognome -->
+                <div class="row mb-3">
+                  <div class="form-outline col col-xs-6">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" name="nome" placeholder="Nome" required />
+                  </div>
+                  <div class="col col-xs-6">
+                    <label for="cognome">Cognome</label>
+                    <input type="text" class="form-control" name="cognome" placeholder="Cognome" required />
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <!-- Data di nascita -->
+                  <div class="col col-xs-6">
+                    <label for="data">Data di nascita</label>
+                    <input type="date" id="data" name="data" class="form-control" onchange="checkData()" />
+                  </div>
+
+                  <!-- Sesso -->
+                  <div class="col col-xs-6">
+                    <label for="sesso">Sesso</label>
+                    <select name="sesso" id="sesso" class="form-select" required>
+                      <option value="" selected></option>
+                      <option value="M">Maschio</option>
+                      <option value="F">Femmina</option>
+                      <option value="U">Altro</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-outline mb-3 input-group">
+                  <div class="input-group-text"><i class="fa fa-envelope fa-fw"></i></div>
+                  <input type="email" class="form-control" name="email" placeholder="Email" required />
+                </div>
+
+                <!-- Password -->
+                <div class="form-outline mb-3 input-group">
+                  <div class="input-group-text"><i class="fa fa-lock fa-fw"></i></div>
+                  <input type="password" class="form-control" name="password" placeholder="Password" id="password"
+                    onchange='checkLgh()' required />
+
+                  <!-- Mostra password -->
+                  <div class="input-group-text" onclick="showPwd()"><i class="fa fa-eye" id="pwdEye1"></i></div>
+                </div>
+
+                <!-- Password repeat -->
+                <div class="form-outline mb-3 input-group">
+                  <div class="input-group-text"><i class="fa fa-lock fa-fw"></i></div>
+                  <input type="password" class="form-control" name="password_repeat" placeholder="Conferma Password"
+                    id="password_repeat" onchange='checkPwdMatch()' required />
+
+                  <!-- Mostra password -->
+                  <div class="input-group-text" onclick="showPwd2()"><i class="fa fa-eye" id="pwdEye2"></i></div>
+                </div>
+
+                <!-- Messaggio di errore -->
+                <div class="form-outline mb-3 text-danger" id='message'>{{error}}</div>
+
+                <!-- Termini e condizioni -->
+                <div class="form-outline mb-3">
+                  <label class="checkbox-inline"><input type="checkbox" required />
+                    Accetto i termini d'uso e condizioni
+                  </label>
+                </div>
+
+                <!-- Bottone di conferma -->
+                <div class="form-outline mb-3 text-center">
+                  <button type="submit" class="btn btn-primary btn-lg">Registrati</button>
+                </div>
+              </form>
+
+              <!-- Link di navigazione -->
+              <div class="text-center">Sei già registrato? <a href="login">Accedi</a></div>
+              <div class="text-center">Torna alla <a href="/">Home</a></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

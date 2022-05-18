@@ -1,0 +1,367 @@
+<!-- Usare il foglio di stile style-profile.css per tutti gli stili usati -->
+
+<body>
+  <!-- Includi l'header -->
+  {{> header}}
+
+  <section id="profileSection">
+    <div class="container-xl px-4 mt-4">
+      <!-- Messaggio di errore -->
+      <div class="form-outline mb-3 text-danger" id='errorMsg'></div>
+
+      <!-- Messaggio di successo -->
+      <div class="form-outline mb-3 text-success" id='successMsg'></div>
+
+      <!-- Navbar -->
+      <div class="col-xl">
+        <ul class="nav nav-tabs" id="prof-tab" role="tablist">
+
+          <!-- Utente organizzatore -->
+          {{#if privilegi}}
+          <li class="nav-item">
+            <a class="nav-link active" id="prenotazioniTab" data-toggle="tab" onclick="showPrenotazioni()" role="tab"
+              aria-controls="home" aria-selected="true">Prenotazioni</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " id="creaTab" data-toggle="tab" onclick="showEvento()" role="tab"
+              aria-controls="creaEvento" aria-selected="true">Crea nuovo evento</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="rimuoviTab" data-toggle="tab" onclick="showRimozione()" role="tab"
+              aria-controls="rimuoviEvento" aria-selected="false">Elimina eventi</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="adminTab" data-toggle="tab" onclick="showAdmin()" role="tab" aria-controls="admin"
+              aria-selected="false">Gestione organizzatori</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="storicoTab" data-toggle="tab" onclick="showStorico()" role="tab"
+              aria-controls="storico" aria-selected="false">Storico eventi</a>
+          </li>
+
+          <!-- Utente normale -->
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link active" id="prenotazioniNormalTab" data-toggle="tab" onclick="showPrenotazioniNormal()"
+              role="tab" aria-controls="home" aria-selected="true">Prenotazioni</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="beOrganizerTab" data-toggle="tab" onclick="showBeOrganizer()" role="tab"
+              aria-controls="beOrganizer" aria-selected="false">Diventa organizzatore</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="storicoNormalTab" data-toggle="tab" onclick="showStoricoNormal()" role="tab"
+              aria-controls="storico" aria-selected="false">Storico eventi</a>
+          </li>
+          {{/if}}
+        </ul>
+
+        <div class="tab-content" id="prof-tabContent">
+
+          <!-- Utente organizzatore -->
+          {{#if privilegi}}
+
+          <!-- TAB prenotazioni -->
+          <div class="tab-pane fade show active" id="prenotazioni" role="tabpanel" aria-labelledby="prenotazioni-tab">
+
+            {{#if notEmpty}}
+            <table class="table mt-3">
+              <!-- Header della tabella -->
+              <tr>
+                <th>Titolo evento</th>
+                <th>Data evento</th>
+                <th>Azioni</th>
+              </tr>
+
+              <!-- Dati prenotazioni -->
+              {{#each prenotazioni}}
+              <tr>
+                <td>{{titolo}}</td>
+                <td>{{dataora}}</td>
+                <td>
+                  <button class="btn btn-disdici" onclick="unbook({{id}})">Disdici</button>
+                  <button class="btn btn-print" onclick="stampa({{id}})">Stampa</button>
+                </td>
+              </tr>
+              {{/each}}
+            </table>
+
+            {{else}}
+            <div class="mt-3">
+              Non ci sono prenotazioni recenti.
+            </div>
+            {{/if}}
+          </div>
+
+          <!-- TAB crea evento -->
+          <div class="tab-pane fade" id="creaEventoPage" role="tabpanel" aria-labelledby="creaEvento-tab">
+            <form action="/createEvent" method="post" id="creaEvento" class="form-signin my-3"
+              onsubmit="return validaCreazione()">
+
+              <!-- Titolo e luogo dell'evento -->
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="titolo">Titolo</label>
+                  <br>
+                  <input type="text" class="form-control" name='titolo' placeholder="Titolo Evento" required />
+                </div>
+
+                <div class="col">
+                  <label for="location">Luogo</label>
+                  <br>
+                  <input type="text" class="form-control" name='location' placeholder="Luogo" required />
+                </div>
+              </div>
+
+              <!-- Tipo, dataora e posti -->
+              <div class="row mb-3">
+                <!-- Tipo evento -->
+                <div class="col col-xl-4">
+                  <label for="eventType">Tipo</label>
+                  <br>
+                  <select name="eventType" class="form-select" required>
+                    <option value="" selected></option>
+                    <option value="Singolo">Singolo</option>
+                    <option value="Torneo">Torneo</option>
+                    <option value="Altro">Altro</option>
+                  </select>
+                </div>
+
+                <!-- Data evento -->
+                <div class="col col-xl-4">
+                  <label for="dateTime">Data e ora</label>
+                  <br>
+                  <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" onclick="setDates()"
+                    required />
+                </div>
+
+                <!-- Posti disponibili -->
+                <div class="col col-xl-4">
+                  <label for="posti">Posti</label>
+                  <br>
+                  <input type="number" class="form-control" name="posti" min="2" required />
+                </div>
+              </div>
+            </form>
+
+            <!-- Descrizione e pulsanti -->
+            <div class="row">
+              <!-- Descrizione -->
+              <div class="col-xl-8">
+                <label for="descrizione">Descrizione</label>
+                <br>
+                <textarea rows="5" cols="100" class="form-control" form="creaEvento" name="descrizione" maxlength="115"
+                  placeholder="Descrizione dell'evento" required></textarea>
+              </div>
+
+              <!-- Submit e reset -->
+              <div class="col-xl-4">
+                <!-- Tipo evento -->
+                <div>
+                  <label for="imgEvent">Immagine di sfondo</label>
+                  <br>
+                  <select name="imgEvent" class="form-select" form="creaEvento" required>
+                    <option value="" selected></option>
+                    {{#each images}}
+                    <option value="{{nome}}">{{titolo}}</option>
+                    {{/each}}
+                    <option value="Altro">Altro</option>
+                  </select>
+                </div>
+
+                <div class="text-center py-2 px-3">
+                  <button type="submit" class="btn btn-confirm" id="creaEventoBtn"
+                    form="creaEvento">Conferma</button>
+
+                  <button type="reset" class="btn btn-secondary" id="resetBtn" form="creaEvento">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB admin -->
+          <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-Tab">
+            {{#if requests}}
+            <table class="table mt-3">
+              <!-- Header della tabella -->
+              <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Azioni</th>
+              </tr>
+
+              <!-- Dati degli utenti -->
+              {{#each utenti}}
+              <tr>
+                <td>{{nome}}</td>
+                <td>{{cognome}}</td>
+                <td>{{email}}</td>
+                <td>
+                  <button class="btn btn-confirm" onclick="acceptUser('{{email}}')">Accetta</button>
+                  <button class="btn btn-disdici" onclick="declineUser('{{email}}')">Respingi</button>
+                </td>
+              </tr>
+              {{/each}}
+            </table>
+
+            {{else}}
+            <div class="mt-3">
+              Non ci sono nuove richieste.
+            </div>
+            {{/if}}
+          </div>
+
+          <!-- TAB rimuovi evento -->
+          <div class="tab-pane fade" id="rimozioni" role="tabpanel" aria-labelledby="rimozioni-tab">
+            {{#if numOrg}}
+            <table class="table mt-3">
+              <!-- Header della tabella -->
+              <tr>
+                <th>Titolo evento</th>
+                <th>Data evento</th>
+                <th>Azioni</th>
+              </tr>
+
+              <!-- Dati organizzazioni -->
+              {{#each organizzazioni}}
+              <tr>
+                <td>{{titolo}}</td>
+                <td>{{dataora}}</td>
+                <td>
+                  <button class="btn btn-disdici" onclick="remove({{id}})">Rimuovi</button>
+                </td>
+              </tr>
+              {{/each}}
+            </table>
+
+            {{else}}
+            <div class="mt-3">
+              Non hai organizzato eventi.
+            </div>
+            {{/if}}
+          </div>
+
+          <!-- TAB storico -->
+          <div class="tab-pane fade" id="storico" role="tabpanel" aria-labelledby="storico-tab">
+            {{#if notEmptyStorico}}
+            <table class="table mt-3">
+              <!-- Header della tabella -->
+              <tr>
+                <th>Titolo evento</th>
+                <th>Data evento</th>
+                <th>Luogo</th>
+              </tr>
+
+              <!-- Dati prenotazioni -->
+              {{#each storico}}
+              <tr>
+                <td>{{titolo}}</td>
+                <td>{{dataora}}</td>
+                <td>{{luogo}}</td>
+              </tr>
+              {{/each}}
+            </table>
+
+            {{else}}
+            <div class="mt-3">
+              Non ci sono prenotazioni nello storico.
+            </div>
+            {{/if}}
+          </div>
+
+          <!-- Utente normale -->
+          {{else}}
+
+          <!-- TAB prenotazioni (utente normale) -->
+          <div class="tab-pane fade show active" id="prenotazioniNormal" role="tabpanel"
+            aria-labelledby="prenotazioni-tab">
+            {{#if notEmpty}}
+            <table class="table mt-3">
+              <!-- Header della tabella -->
+              <tr>
+                <th>Titolo evento</th>
+                <th>Data evento</th>
+                <th>Azioni</th>
+              </tr>
+
+              <!-- Dati prenotazioni -->
+              {{#each prenotazioni}}
+              <tr>
+                <td>{{titolo}}</td>
+                <td>{{dataora}}</td>
+                <td>
+                  <button class="btn btn-disdici" onclick="unbook({{id}})">Disdici</button>
+                  <button class="btn btn-print" onclick="stampa({{id}})">Stampa</button>
+                </td>
+              </tr>
+              {{/each}}
+            </table>
+
+            {{else}}
+            <div class="mt-3">
+              Non ci sono prenotazioni recenti.
+            </div>
+            {{/if}}
+          </div>
+
+          <!-- TAB diventa organizzatore (utente normale) -->
+          <div class="tab-pane fade" id="beOrganizer" role="tabpanel" aria-labelledby="beorganizer-Tab">
+            <div class="mt-3">
+              <div id="contentDiv">
+                {{#if richiesta}}
+                Hai già richiesto di essere un organizzatore. Attendi che la tua richiesta sia validata.
+                {{else}}
+                Vuoi diventare un'organizzatore? Richiedi l'autorizzazione ad un organizzatore.
+                {{/if}}
+              </div>
+
+              <!-- Se non hai richiesto di essere organizzatore allora mostra il pulsante (unless == if not) -->
+              {{#unless richiesta}}
+              <button class="btn btn-confirm mt-3" id="btnRichiedi" onclick="richiediOrg('{{email}}')">Richiedi</button>
+              {{/unless}}
+            </div>
+          </div>
+
+          <!-- TAB storico -->
+          <div class="tab-pane fade" id="storicoNormal" role="tabpanel" aria-labelledby="storico-tab">
+            {{#if notEmptyStorico}}
+            <table class="table mt-3">
+              <!-- Header della tabella -->
+              <tr>
+                <th>Titolo evento</th>
+                <th>Data evento</th>
+                <th>Luogo</th>
+              </tr>
+
+              <!-- Dati prenotazioni -->
+              {{#each storico}}
+              <tr>
+                <td>{{titolo}}</td>
+                <td>{{dataora}}</td>
+                <td>{{luogo}}</td>
+              </tr>
+              {{/each}}
+            </table>
+
+            {{else}}
+            <div class="mt-3">
+              Non ci sono prenotazioni nello storico.
+            </div>
+            {{/if}}
+          </div>
+
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Includi il footer -->
+  {{> footer}}
+</body>

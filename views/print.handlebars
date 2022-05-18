@@ -1,0 +1,61 @@
+<body>
+    {{#each dati}}
+    <!-- Script per la stampa automatica e ritorno alla pagina precedente -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Generazione del QR code per la prenotazione
+            new QRCode($('#qrcode')[0], {
+                text: "email={{email}}|id={{id}}",
+                width: 200,
+                height: 200
+            });
+
+            // Apri la finestra di dialogo di stampa
+            window.print();
+            // Torna alla pagina del profilo
+            setTimeout(() => {
+                window.location.replace("/profile");
+            }, 1000);
+        });
+    </script>
+
+    <!-- Aspetto dell'immagine originale: 3.66:1 -->
+    <div class="text-center">
+        <a href="/">
+            <img src="img/icon-transparent.png" alt="home" width="360" height="98" />
+        </a>
+    </div>
+
+    <div>
+        <!-- Informazioni dell'evento -->
+        <div class="header">Informazioni evento</div>
+        <div class="body">
+            <div><span class="italic">Titolo: </span>{{titolo}}</div>
+            <div><span class="italic">Luogo: </span>{{luogo}}</div>
+            <div><span class="italic">Data: </span>{{edataora}}</div>
+        </div>
+
+        <!-- Informazioni sulla prenotazione dell'utente -->
+        <div class="header">La tua prenotazione</div>
+        <div class="body">
+            <div><span class="italic">Nome: </span>{{nome}}</div>
+            <div><span class="italic">Cognome: </span>{{cognome}}</div>
+            <div><span class="italic">Email: </span>{{email}}</div>
+            <div><span class="italic">Data: </span>{{pdataora}}</div>
+        </div>
+
+        <!-- QRCode generato dalla prenotazione -->
+        <div class="header">QR code</div>
+        <div class="body">
+            <div>Ti verrà chiesto di esibire questo codice all'entrata</div>
+            <div id="qrcode"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Lo staff di EventHub&reg; ti augura buon divertimento!
+        </div>
+    </div>
+    {{/each}}
+
+</body>

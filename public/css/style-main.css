@@ -1,0 +1,111 @@
+@import "style-common.css";
+
+/* Generali */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    width: 100%;
+    padding-bottom: 5rem;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: var(--font-family);
+}
+
+div#titolo {
+    font-size: 25px;
+    text-align: center;
+    padding-top: .5rem;
+    font-weight: 400;
+}
+
+div#tipo {
+    margin-bottom: .5rem;
+    text-align: center;
+}
+
+div#desc {
+    text-align: justify;
+}
+
+/* Pulsanti */
+.buttons-par {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    display: none;
+}
+
+.btn-prenota {
+    background-color: var(--btn-prenota-color);
+    color: black;
+}
+
+.btn-prenota:hover, .btn-prenota:focus, .btn-prenota:active {
+    background-color: var(--btn-info-color);
+}
+
+.btn-prenotato {
+    background-color: var(--btn-prenotato-color);
+    color: white;
+}
+
+.btn-login {
+    background-color: var(--btn-prenota-color);
+    border-color: transparent;
+    color: black;
+}
+
+.btn-login:hover, .btn-login:active, .btn-login:focus {
+    background-color: var(--btn-info-color);
+    border-color: transparent;
+    color: black;
+}
+
+/* Gestione card nella main page */
+.listing {
+    width: 95%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
+}
+
+.card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 1.5rem 3.5rem;
+    justify-items: center;
+}
+
+.card {
+    border: none;
+    display: none; /* Per il fading iniziale */
+    width: 400px;
+    height: 300px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: absolute;
+}
+
+/* Media queries per l'adattamento a dispositivi mobili */
+@media screen and (max-width: 621px) {
+    section {
+        min-height: 65vh;
+    }
+}

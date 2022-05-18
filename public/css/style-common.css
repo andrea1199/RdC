@@ -1,0 +1,104 @@
+/* Stili di header e footer comuni tra le pagine */
+
+/* Colori e variabili */
+:root {
+    --theme-color: rgba(24, 192, 46, 0.534);
+    --btn-prenota-color: rgba(8, 211, 41, 0.603);
+    --btn-prenotato-color: rgb(5, 134, 16);
+    --btn-info-color: rgba(17, 177, 226, 0.534);
+    --btn-disdici-color: rgb(255, 94, 0);
+    --btn-secondary-color: rgb(95, 98, 100);
+    --header-color: var(--theme-color);
+    --footer-color: #efefef;
+    --font-family: "Lato", "Inter", sans-serif;
+}
+
+.gradient-custom-4 {
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+}
+
+/* Stili dell'header */
+header {
+    background-color: var(--header-color);
+    margin-left: auto;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-group-text {
+    background-color: white;
+}
+
+.fa-search {
+    cursor: pointer;
+}
+
+/* Stili del footer */
+footer {
+    background-color: var(--footer-color);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-left: auto;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+/* Altri stili */
+div {
+    font-size: 17px;
+    color: black;
+    font-weight: 100;
+}
+
+.d-flex {
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 95%;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Media queries per l'adattamento a dispositivi mobili */
+@media screen and (max-width: 621px) {
+    footer {
+        bottom: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    footer p, footer a {
+        margin-bottom: 1;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .text-end {
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .container {
+        max-width: 1400px !important;
+    }
+}
+
+@media screen and (max-width: 1001px) {
+    header ul.nav {
+        width: 100%;
+    }
+}

@@ -1,0 +1,60 @@
+@import "style-common.css";
+
+/* Generali */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    width: 100%;
+    padding-bottom: 5rem;
+    position: relative;
+    font-family: var(--font-family);
+}
+
+.card-header {
+    justify-content: space-between;
+}
+
+label {
+    margin-bottom: .25rem;
+}
+
+/* Pulsanti */
+.btn-primary {
+    background-color: var(--btn-prenota-color);
+    border-color: transparent;
+    color: black;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: var(--btn-info-color);
+    border-color: transparent;
+    color: black;
+}
+
+.btn-remove {
+    background-color: var(--btn-disdici-color);
+    margin-top: 1rem;
+}
+
+.btn-remove:hover, .btn-remove:focus, .btn-remove:active {
+    background-color: red;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-color);
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+    background-color: black;
+}
+
+/* Media queries per l'adattamento a dispositivi mobili */
+@media screen and (max-width: 621px) {  
+    section {
+        min-height: 75vh;
+    }
+}

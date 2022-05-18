@@ -1,0 +1,31 @@
+<!-- Body della main page -->
+<body>
+  <!-- Includi l'header -->
+  {{> header}}
+
+  <!-- Se l'utente è loggato allora fai comparire i pulsanti, altrimenti no -->
+  {{#if log}}
+  <script>
+    $(document).ready(function () {
+      $(".buttons-par").show();
+    });
+  </script>
+  {{/if}}
+
+  <!-- Parte di ricerca: se non ci sono risultati allora stampa l'errore -->
+  {{#if error}}
+  <div class="mb-3 text-danger text-center" id="message">{{error}}</div>
+  {{/if}}
+
+  <!-- Per ogni elemento della query crea un nuovo elemento -->
+  <div class="container" id="mainSection">
+    <div class="card-deck mt-3">
+      {{#each mainList}}
+        {{> main-listing}}
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- Includi il footer -->
+  {{> footer}}
+</body>
