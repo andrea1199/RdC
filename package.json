@@ -19,3 +19,9 @@
     "requirejs": "^2.3.6"
   }
 }
+
+{
+  "scripts": {
+    "start": "node index.js"
+  },
+}
